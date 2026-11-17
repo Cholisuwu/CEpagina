@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IMSS Digital - Portal Web</title>
+  <title>Salud Digital MX - Simulación académica</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -11,10 +11,19 @@
 
   <!-- navbar -->
   <header class="navbar">
-    <div class="navbar-brand">
-      <span class="logo-badge">IMSS</span>
-      <h1>IMSS Digital</h1>
+    <div class="navbar-brand" data-nav="inicio" role="button" tabindex="0" title="Ir al inicio">
+      <span class="logo-badge">SD</span>
+      <h1>Salud Digital MX</h1>
     </div>
+
+    <nav class="main-nav" aria-label="Menú principal">
+      <button type="button" class="nav-link" data-nav="citas">Citas</button>
+      <button type="button" class="nav-link" data-nav="calendario">Calendario de citas</button>
+      <button type="button" class="nav-link" data-nav="nosotros">Misión, visión y valores</button>
+      <button type="button" class="nav-link" data-nav="servicios">Servicios</button>
+      <button type="button" class="nav-link" data-nav="modulos">Ubica tu módulo</button>
+    </nav>
+
     <button id="btn-logout" class="btn-outline hidden">Cerrar sesión</button>
   </header>
 
@@ -23,17 +32,17 @@
     <section class="card login-card">
       <div class="card-header">
         <h2>Bienvenido</h2>
-        <p>Ingresa tus datos para acceder a tus servicios digitales.</p>
+        <p>Ingresa tus datos de ejemplo para probar los servicios digitales.</p>
       </div>
 
       <form id="login-form">
         <div class="form-group">
-          <label for="curp">CURP (18 caracteres)</label>
+          <label for="curp">CURP de ejemplo (18 caracteres)</label>
           <input type="text" id="curp" maxlength="18" placeholder="Ej. ABCD000101HDFRRL09" required>
         </div>
 
         <div class="form-group">
-          <label for="nss">Número de Seguridad Social (11 dígitos)</label>
+          <label for="nss">Número de seguridad social de ejemplo (11 dígitos)</label>
           <input type="text" id="nss" maxlength="11" placeholder="Ej. 12345678901" required>
         </div>
 
@@ -50,44 +59,48 @@
     </section>
   </main>
 
-  <!-- panel p -->
+  <!-- panel principal -->
   <main id="view-dashboard" class="container hidden">
-    
+
     <!-- resumen usuario -->
     <section class="card profile-summary">
       <div>
-        <span class="status-badge">VIGENTE</span>
-        <h2 id="user-greeting">Hola, Derechohabiente</h2>
+        <span class="status-badge">VIGENTE (EJEMPLO)</span>
+        <h2 id="user-greeting">Hola, Usuario</h2>
         <p class="text-muted">CURP: <strong id="display-curp">---</strong> | NSS: <strong id="display-nss">---</strong></p>
       </div>
       <div class="clinic-info">
-        <p><strong>Clínica asignada:</strong> UMF No. 68</p>
+        <p><strong>Clínica asignada:</strong> Clínica Demo No. 68</p>
         <p><strong>Consultorio:</strong> 4 | <strong>Turno:</strong> Matutino</p>
       </div>
     </section>
 
-    
+
     <!-- grid servicios -->
     <h3 class="section-title">Servicios disponibles</h3>
     <section class="services-grid">
       <article class="service-card" data-module="cita">
+        <div class="service-icon">📅</div>
         <h4>Cita Médica Familiar</h4>
         <p>Agenda, consulta o cancela tu cita en medicina general.</p>
       </article>
 
       <article class="service-card" data-module="vigencia">
+        <div class="service-icon">📄</div>
         <h4>Vigencia de Derechos</h4>
-        <p>Consulta y descarga tu constancia oficial actualizada.</p>
+        <p>Consulta y descarga una constancia de ejemplo.</p>
       </article>
 
       <article class="service-card" data-module="clinica">
+        <div class="service-icon">🏥</div>
         <h4>Alta o Cambio de Clínica</h4>
-        <p>Actualiza tu Unidad de Medicina Familiar por código postal.</p>
+        <p>Actualiza tu clínica asignada por código postal.</p>
       </article>
 
       <article class="service-card" data-module="ubicacion">
-        <h4>Ubicación de Inmuebles</h4>
-        <p>Encuentra hospitales, clínicas y subdelegaciones cercanas.</p>
+        <div class="service-icon">📍</div>
+        <h4>Ubicación de Clínicas</h4>
+        <p>Encuentra hospitales, clínicas y oficinas cercanas.</p>
       </article>
     </section>
 
@@ -96,6 +109,149 @@
 
   </main>
 
+  <!-- servicios que ofrecemos -->
+  <main id="view-servicios" class="container hidden">
+
+    <section class="card serv-hero">
+      <p class="serv-kicker">SERVICIOS</p>
+      <h2>Qué ofrecemos</h2>
+      <p class="text-muted">
+        La <strong>Unidad de Atención Digital</strong> de Salud Digital MX está formada por 6 áreas que
+        trabajan para que las personas puedan agendar citas, consultar información y recibir orientación
+        de forma sencilla. Todo el contenido es de ejemplo para este proyecto escolar.
+      </p>
+      <button type="button" id="btn-go-digital" class="btn-primary" style="margin-top: 1rem; align-self: flex-start;">
+        Ir a mis servicios digitales
+      </button>
+    </section>
+
+    <h3 class="section-title">Nuestro modelo</h3>
+    <section class="card modelo-card">
+      <h3>Modelo Salud Digital</h3>
+      <p class="text-muted">
+        Es una forma de organizar la atención que pone a la persona en el centro: servicios claros,
+        sin trámites innecesarios y con seguimiento en cada paso, desde la primera cita hasta el
+        cuidado continuo.
+      </p>
+    </section>
+
+    <h3 class="section-title">Principios del modelo</h3>
+    <section class="principios-grid">
+      <article class="card principio"><span class="principio-num">1</span><h4>Acceso para todas las personas</h4><p>Servicios pensados para que nadie se quede fuera por costo o falta de información.</p></article>
+      <article class="card principio"><span class="principio-num">2</span><h4>Accesibilidad</h4><p>Menos barreras de distancia, lenguaje o tecnología para encontrar la atención que se necesita.</p></article>
+      <article class="card principio"><span class="principio-num">3</span><h4>Oportunidad</h4><p>Atender las solicitudes en tiempos razonables, con citas fáciles de agendar.</p></article>
+      <article class="card principio"><span class="principio-num">4</span><h4>Continuidad</h4><p>Conectar los distintos niveles de atención para dar seguimiento sin repetir trámites.</p></article>
+      <article class="card principio"><span class="principio-num">5</span><h4>Calidad</h4><p>Mejorar de forma constante cada servicio con base en la experiencia de las personas.</p></article>
+    </section>
+
+    <h3 class="section-title">Componentes</h3>
+    <section class="mv-grid">
+      <article class="card mv-card">
+        <div class="service-icon">🩺</div>
+        <h3>Atención médica</h3>
+        <p>Consultas, seguimiento y orientación para resolver las necesidades de salud más frecuentes.</p>
+      </article>
+      <article class="card mv-card">
+        <div class="service-icon">🤝</div>
+        <h3>Acción comunitaria</h3>
+        <p>Actividades en colonias y escuelas para llevar información y prevención a las familias.</p>
+      </article>
+    </section>
+
+    <h3 class="section-title">Nuestras áreas</h3>
+    <section class="card areas-card">
+      <div id="area-tabs" class="area-tabs" role="tablist" aria-label="Áreas de atención"></div>
+      <div id="area-panel" class="area-panel" role="tabpanel"></div>
+    </section>
+
+  </main>
+
+  <!-- ubica tu módulo de registro -->
+  <main id="view-modulos" class="container hidden">
+
+    <section class="card serv-hero">
+      <p class="serv-kicker">MÓDULOS DE REGISTRO</p>
+      <h2>Acude al módulo más cercano</h2>
+      <p class="text-muted">
+        Busca por colonia, código postal o municipio para encontrar un módulo de ejemplo donde
+        realizar tu registro. Todos los módulos y domicilios son ficticios.
+      </p>
+
+      <form id="mod-form" class="mod-search">
+        <input type="text" id="mod-search" placeholder="Ingresa tu colonia, código postal o municipio" autocomplete="off">
+        <button type="submit" class="btn-primary">Buscar</button>
+        <button type="button" id="mod-clear" class="btn-secondary">Ver todos</button>
+      </form>
+    </section>
+
+    <section class="mod-layout">
+      <div class="card mod-map-card">
+        <iframe id="mod-map" title="Mapa del módulo seleccionado" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <div class="card mod-table-card">
+        <h3 id="mod-count" class="mod-count"></h3>
+        <div class="mod-table-wrap">
+          <table class="mod-table">
+            <thead>
+              <tr><th>Módulo</th><th>Horario</th><th>Domicilio</th><th></th></tr>
+            </thead>
+            <tbody id="mod-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- calendario de citas -->
+  <main id="view-calendario" class="container hidden">
+    <section id="calendar-root" class="card calendar-card"></section>
+  </main>
+
+  <!-- misión, visión y valores -->
+  <main id="view-nosotros" class="container hidden">
+    <section class="card about-hero">
+      <h2>Quiénes somos</h2>
+      <p class="text-muted">
+        Salud Digital MX es un proyecto escolar que simula un portal de servicios de salud.
+        Todo el contenido, los datos y los documentos son de ejemplo y no tienen validez oficial.
+      </p>
+    </section>
+
+    <section class="mv-grid">
+      <article class="card mv-card">
+        <div class="service-icon">🎯</div>
+        <h3>Misión</h3>
+        <p>Facilitar el acceso a servicios de salud mediante herramientas digitales claras,
+          rápidas y fáciles de usar para todas las personas.</p>
+      </article>
+
+      <article class="card mv-card">
+        <div class="service-icon">🔭</div>
+        <h3>Visión</h3>
+        <p>Ser un modelo de referencia en atención digital, donde agendar una cita o consultar
+          información sea una experiencia sencilla y confiable.</p>
+      </article>
+
+      <article class="card mv-card">
+        <div class="service-icon">💚</div>
+        <h3>Valores</h3>
+        <ul class="values-list">
+          <li>Respeto</li>
+          <li>Empatía</li>
+          <li>Transparencia</li>
+          <li>Responsabilidad</li>
+          <li>Innovación</li>
+          <li>Trabajo en equipo</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <!-- GSAP primero, luego tu código -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
