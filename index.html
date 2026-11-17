@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMSS Digital - Portal Web</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- navbar -->
+  <header class="navbar">
+    <div class="navbar-brand">
+      <span class="logo-badge">IMSS</span>
+      <h1>IMSS Digital</h1>
+    </div>
+    <button id="btn-logout" class="btn-outline hidden">Cerrar sesión</button>
+  </header>
+
+  <!-- login -->
+  <main id="view-login" class="container">
+    <section class="card login-card">
+      <div class="card-header">
+        <h2>Bienvenido</h2>
+        <p>Ingresa tus datos para acceder a tus servicios digitales.</p>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="curp">CURP (18 caracteres)</label>
+          <input type="text" id="curp" maxlength="18" placeholder="Ej. ABCD000101HDFRRL09" required>
+        </div>
+
+        <div class="form-group">
+          <label for="nss">Número de Seguridad Social (11 dígitos)</label>
+          <input type="text" id="nss" maxlength="11" placeholder="Ej. 12345678901" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" placeholder="correo@ejemplo.com" required>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Ingresar</button>
+          <button type="button" id="btn-demo" class="btn-secondary">Llenar datos de prueba</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- panel p -->
+  <main id="view-dashboard" class="container hidden">
+    
+    <!-- resumen usuario -->
+    <section class="card profile-summary">
+      <div>
+        <span class="status-badge">VIGENTE</span>
+        <h2 id="user-greeting">Hola, Derechohabiente</h2>
+        <p class="text-muted">CURP: <strong id="display-curp">---</strong> | NSS: <strong id="display-nss">---</strong></p>
+      </div>
+      <div class="clinic-info">
+        <p><strong>Clínica asignada:</strong> UMF No. 68</p>
+        <p><strong>Consultorio:</strong> 4 | <strong>Turno:</strong> Matutino</p>
+      </div>
+    </section>
+
+    
+    <!-- grid servicios -->
+    <h3 class="section-title">Servicios disponibles</h3>
+    <section class="services-grid">
+      <article class="service-card" data-module="cita">
+        <h4>Cita Médica Familiar</h4>
+        <p>Agenda, consulta o cancela tu cita en medicina general.</p>
+      </article>
+
+      <article class="service-card" data-module="vigencia">
+        <h4>Vigencia de Derechos</h4>
+        <p>Consulta y descarga tu constancia oficial actualizada.</p>
+      </article>
+
+      <article class="service-card" data-module="clinica">
+        <h4>Alta o Cambio de Clínica</h4>
+        <p>Actualiza tu Unidad de Medicina Familiar por código postal.</p>
+      </article>
+
+      <article class="service-card" data-module="ubicacion">
+        <h4>Ubicación de Inmuebles</h4>
+        <p>Encuentra hospitales, clínicas y subdelegaciones cercanas.</p>
+      </article>
+    </section>
+
+    <!-- area modulos -->
+    <section id="module-workspace" class="card workspace hidden"></section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
