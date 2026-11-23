@@ -3,20 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Salud Digital MX - Simulación académica</title>
+  <title>IMSS Digital - Simulación académica</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="page-wrapper">
 
-  <!-- navbar -->
   <header class="navbar">
     <div class="navbar-brand" data-nav="inicio" role="button" tabindex="0" title="Ir al inicio">
-      <span class="logo-badge">SD</span>
-      <h1>Salud Digital MX</h1>
+      <span class="logo-badge">IMSS</span>
+      <h1>IMSS Digital</h1>
     </div>
 
-    
     <nav class="main-nav" aria-label="Menú principal">
       <button type="button" class="nav-link" data-nav="citas">Citas</button>
       <button type="button" class="nav-link" data-nav="calendario">Calendario de citas</button>
@@ -28,96 +26,125 @@
     <button id="btn-logout" class="btn-outline hidden">Cerrar sesión</button>
   </header>
 
-  <!-- login -->
-  <main id="view-login" class="container">
-    <section class="card login-card">
-      <div class="card-header">
-        <h2>Bienvenido</h2>
-        <p>Ingresa tus datos de ejemplo para probar los servicios digitales.</p>
-      </div>
+  <main id="view-login" class="container main-content">
+    <div class="hero-login-grid">
+      <section class="hero-banner">
+        <img 
+          src="img/imss-portada.jpg" 
+          alt="Atención médica e instalaciones IMSS" 
+          class="hero-banner-img"
+        >
+        <div class="hero-banner-overlay">
+          <span class="hero-tag">Portal de Atención Ciudadana</span>
+          <h2 class="hero-title">IMSS</h2>
+          <p class="hero-subtitle">Instituto Mexicano del Seguro Social • Servicios Digitales</p>
+          <p class="hero-desc">
+            Agenda tus citas médicas familiares, descarga tu vigencia de derechos y ubica tu clínica más cercana sin hacer filas.
+          </p>
+        </div>
+      </section>
 
-      <form id="login-form">
-        <div class="form-group">
-          <label for="curp">CURP de ejemplo (18 caracteres)</label>
-          <input type="text" id="curp" maxlength="18" placeholder="Ej. ABCD000101HDFRRL09" required>
+      <section class="card login-card">
+        <div class="card-header">
+          <span class="serv-kicker">ACCESO AL PORTAL</span>
+          <h2>Bienvenido</h2>
+          <p class="text-muted">Ingresa tus datos de ejemplo para probar los servicios digitales.</p>
         </div>
 
-        <div class="form-group">
-          <label for="nss">Número de seguridad social de ejemplo (11 dígitos)</label>
-          <input type="text" id="nss" maxlength="11" placeholder="Ej. 12345678901" required>
-        </div>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="curp">CURP de ejemplo (18 caracteres)</label>
+            <input type="text" id="curp" maxlength="18" placeholder="Ej. ABCD000101HDFRRL09" required>
+          </div>
 
-        <div class="form-group">
-          <label for="email">Correo electrónico</label>
-          <input type="email" id="email" placeholder="correo@ejemplo.com" required>
-        </div>
+          <div class="form-group">
+            <label for="nss">Número de seguridad social de ejemplo (11 dígitos)</label>
+            <input type="text" id="nss" maxlength="11" placeholder="Ej. 12345678901" required>
+          </div>
 
-        <div class="form-actions">
-          <button type="submit" class="btn-primary">Ingresar</button>
-          <button type="button" id="btn-demo" class="btn-secondary">Llenar datos de prueba</button>
-        </div>
-      </form>
-    </section>
+          <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" placeholder="correo@ejemplo.com" required>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Ingresar</button>
+            <button type="button" id="btn-demo" class="btn-secondary">Llenar datos de prueba</button>
+          </div>
+        </form>
+      </section>
+    </div>
   </main>
 
-  <!-- panel principal -->
-  <main id="view-dashboard" class="container hidden">
-
-    <!-- resumen usuario -->
-    <section class="card profile-summary">
+  <main id="view-dashboard" class="container main-content hidden">
+    <section class="card profile-summary enhanced-profile">
       <div>
         <span class="status-badge">VIGENTE (EJEMPLO)</span>
         <h2 id="user-greeting">Hola, Usuario</h2>
         <p class="text-muted">CURP: <strong id="display-curp">---</strong> | NSS: <strong id="display-nss">---</strong></p>
       </div>
-      <div class="clinic-info">
+      <div class="clinic-info enhanced-clinic-box">
         <p><strong>Clínica asignada:</strong> Clínica Demo No. 68</p>
-        <p><strong>Consultorio:</strong> 4 | <strong>Turno:</strong> Matutino</p>
+        <p><strong>Consultorio:</strong> 4 &nbsp;|&nbsp; <strong>Turno:</strong> Matutino</p>
       </div>
     </section>
 
+    <div class="citas-header-bar">
+      <div>
+        <span class="serv-kicker">TRÁMITES Y CONSULTAS</span>
+        <h3 class="section-title" style="margin: 0.25rem 0 0;">Gestión de Citas y Servicios</h3>
+      </div>
+      <p class="text-muted" style="font-size: 0.9rem;">Selecciona una tarjeta para abrir el módulo correspondiente</p>
+    </div>
 
-    <!-- grid servicios -->
-    <h3 class="section-title">Servicios disponibles</h3>
-    <section class="services-grid">
-      <article class="service-card" data-module="cita">
-        <div class="service-icon">📅</div>
+    <section class="services-grid enhanced-services">
+      <article class="service-card cita-featured" data-module="cita">
+        <div class="service-card-top">
+          <div class="service-icon">📅</div>
+          <span class="card-pill">Principal</span>
+        </div>
         <h4>Cita Médica Familiar</h4>
-        <p>Agenda, consulta o cancela tu cita en medicina general.</p>
+        <p>Agenda una nueva consulta, revisa tus citas activas o cancela tu horario en medicina general.</p>
+        <span class="card-action-text">Gestionar cita &rarr;</span>
       </article>
 
       <article class="service-card" data-module="vigencia">
-        <div class="service-icon">📄</div>
+        <div class="service-card-top">
+          <div class="service-icon">📄</div>
+        </div>
         <h4>Vigencia de Derechos</h4>
-        <p>Consulta y descarga una constancia de ejemplo.</p>
+        <p>Consulta y descarga una constancia de vigencia médica de ejemplo en formato digital.</p>
+        <span class="card-action-text">Consultar constancia &rarr;</span>
       </article>
 
       <article class="service-card" data-module="clinica">
-        <div class="service-icon">🏥</div>
+        <div class="service-card-top">
+          <div class="service-icon">🏥</div>
+        </div>
         <h4>Alta o Cambio de Clínica</h4>
-        <p>Actualiza tu clínica asignada por código postal.</p>
+        <p>Actualiza tu Unidad de Medicina Familiar (UMF) asignada mediante tu código postal.</p>
+        <span class="card-action-text">Actualizar clínica &rarr;</span>
       </article>
 
       <article class="service-card" data-module="ubicacion">
-        <div class="service-icon">📍</div>
+        <div class="service-card-top">
+          <div class="service-icon">📍</div>
+        </div>
         <h4>Ubicación de Clínicas</h4>
-        <p>Encuentra hospitales, clínicas y oficinas cercanas.</p>
+        <p>Encuentra hospitales, clínicas y oficinas administrativas cercanas a tu domicilio.</p>
+        <span class="card-action-text">Ver mapa &rarr;</span>
       </article>
     </section>
 
-    <!-- area modulos -->
     <section id="module-workspace" class="card workspace hidden"></section>
-
   </main>
 
-  <!-- servicios que ofrecemos -->
-  <main id="view-servicios" class="container hidden">
-
+  <main id="view-servicios" class="container main-content hidden">
     <section class="card serv-hero">
       <p class="serv-kicker">SERVICIOS</p>
       <h2>Qué ofrecemos</h2>
       <p class="text-muted">
-        La <strong>Unidad de Atención Digital</strong> de Salud Digital MX está formada por 6 áreas que
+        La <strong>Unidad de Atención Digital</strong> de IMSS Digital está formada por 6 áreas que
         trabajan para que las personas puedan agendar citas, consultar información y recibir orientación
         de forma sencilla. Todo el contenido es de ejemplo para este proyecto escolar.
       </p>
@@ -164,12 +191,9 @@
       <div id="area-tabs" class="area-tabs" role="tablist" aria-label="Áreas de atención"></div>
       <div id="area-panel" class="area-panel" role="tabpanel"></div>
     </section>
-
   </main>
 
-  <!-- ubica tu módulo de registro -->
-  <main id="view-modulos" class="container hidden">
-
+  <main id="view-modulos" class="container main-content hidden">
     <section class="card serv-hero">
       <p class="serv-kicker">MÓDULOS DE REGISTRO</p>
       <h2>Acude al módulo más cercano</h2>
@@ -203,20 +227,17 @@
         </div>
       </div>
     </section>
-
   </main>
 
-  <!-- calendario de citas -->
-  <main id="view-calendario" class="container hidden">
+  <main id="view-calendario" class="container main-content hidden">
     <section id="calendar-root" class="card calendar-card"></section>
   </main>
 
-  <!-- misión, visión y valores -->
-  <main id="view-nosotros" class="container hidden">
+  <main id="view-nosotros" class="container main-content hidden">
     <section class="card about-hero">
       <h2>Quiénes somos</h2>
       <p class="text-muted">
-        Salud Digital MX es un proyecto escolar que simula un portal de servicios de salud.
+        IMSS Digital es un proyecto escolar que simula un portal de servicios de salud.
         Todo el contenido, los datos y los documentos son de ejemplo y no tienen validez oficial.
       </p>
     </section>
@@ -251,7 +272,19 @@
     </section>
   </main>
 
-  <!-- GSAP primero, luego tu código -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <strong>IMSS Digital</strong>
+        <span>Simulación académica • Portal de servicios médicos</span>
+      </div>
+      <div class="footer-credits">
+        <span class="credits-label">Desarrollado por:</span>
+        <p class="credits-names">Solis Torres Luis Angel • Angeles Carrillo Guillermo • Nombre Compañero 3</p>
+      </div>
+    </div>
+  </footer>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="app.js"></script>
 </body>

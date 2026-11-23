@@ -78,6 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.forEach(btn => btn.classList.toggle('active', btn.dataset.nav === key));
   }
 
+  function closeWorkspace() {
+    workspace.classList.add('hidden');
+    serviceCards.forEach(c => c.classList.remove('active-card'));
+  }
+
+  function bindCloseButton() {
+    const closeBtn = document.getElementById('btn-close-workspace');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeWorkspace);
+    }
+  }
+
   // aviso flotante
   function toast(message) {
     const el = document.createElement('div');
@@ -99,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // "Ubica tu módulo" también es pública
     if (key === 'modulos') {
       showOnly('modulos');
       setActiveNav(key);
@@ -107,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // "Servicios" es una página informativa pública
     if (key === 'servicios') {
       showOnly('servicios');
       setActiveNav(key);
@@ -117,20 +127,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (key === 'inicio') {
       if (user) {
+        closeWorkspace();
         showDashboard(user, false);
       } else {
         showOnly('login');
-        animateIn('.login-card', { y: 30, duration: 0.6 });
+        animateIn('.hero-banner, .login-card', { y: 24, duration: 0.65, stagger: 0.12 });
       }
       setActiveNav(null);
       return;
     }
 
-    // el resto de secciones necesita sesión
     if (!user) {
       showOnly('login');
       setActiveNav(null);
-      animateIn('.login-card', { y: 30, duration: 0.6 });
+      animateIn('.hero-banner, .login-card', { y: 24, duration: 0.65, stagger: 0.12 });
       toast('Inicia sesión para entrar a esta sección.');
       return;
     }
@@ -146,13 +156,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setActiveNav(key);
 
     if (key === 'citas') {
+      serviceCards.forEach(c => c.classList.toggle('active-card', c.dataset.module === 'cita'));
       workspace.classList.remove('hidden');
       renderCitaModule(user);
       animateIn(workspace, { y: 24, stagger: 0 });
       workspace.scrollIntoView({ behavior: 'smooth' });
-    } else if (key === 'servicios') {
-      workspace.classList.add('hidden');
-      animateIn('.service-card', { y: 24, scale: 0.97, duration: 0.45, stagger: 0.08 });
     }
   }
 
@@ -262,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnGoDigital = document.getElementById('btn-go-digital');
   if (btnGoDigital) btnGoDigital.addEventListener('click', () => goTo('inicio'));
 
-  // ---------- ubica tu módulo de registro (datos de ejemplo) ----------
+  // ---------- ubica tu módulo de registro ----------
   const modulos = [
     { id: 1, nombre: 'Módulo Demo Centro', horario: 'Lun a Vie · 9:00 - 17:00', domicilio: 'Av. Juárez 120, Centro, Ecatepec de Morelos', cp: '55000', colonia: 'Centro', municipio: 'Ecatepec de Morelos' },
     { id: 2, nombre: 'Módulo Demo Tulpetlac', horario: 'Lun a Vie · 9:00 - 16:00', domicilio: 'Vía Morelos 850, Santa María Tulpetlac, Ecatepec de Morelos', cp: '55400', colonia: 'Santa María Tulpetlac', municipio: 'Ecatepec de Morelos' },
@@ -287,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function normalizar(text) {
-    return String(text).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    return String(text).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   }
 
   function renderModulos(query = '') {
@@ -347,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (savedUser) {
     showDashboard(savedUser, false);
   } else {
-    animateIn('.login-card', { y: 30, duration: 0.7 });
+    animateIn('.hero-banner, .login-card', { y: 24, duration: 0.65, stagger: 0.12 });
   }
 
   // ---------- datos de prueba ----------
@@ -388,12 +396,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------- cerrar sesión ----------
   btnLogout.addEventListener('click', () => {
     localStorage.removeItem(STORAGE_USER);
-    workspace.classList.add('hidden');
+    closeWorkspace();
     showOnly('login');
     setActiveNav(null);
     btnLogout.classList.add('hidden');
     loginForm.reset();
-    animateIn('.login-card', { y: 30, duration: 0.6 });
+    animateIn('.hero-banner, .login-card', { y: 24, duration: 0.6, stagger: 0.12 });
   });
 
   // ---------- panel principal ----------
@@ -403,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('display-nss').textContent = user.nss;
     document.querySelector('.clinic-info').innerHTML = `
       <p><strong>Clínica asignada:</strong> ${escapeHTML(user.clinica || DEFAULT_CLINICA)}</p>
-      <p><strong>Consultorio:</strong> ${escapeHTML(user.consultorio || DEFAULT_CONSULTORIO)} | <strong>Turno:</strong> ${escapeHTML(user.turno || DEFAULT_TURNO)}</p>
+      <p><strong>Consultorio:</strong> ${escapeHTML(user.consultorio || DEFAULT_CONSULTORIO)} &nbsp;|&nbsp; <strong>Turno:</strong> ${escapeHTML(user.turno || DEFAULT_TURNO)}</p>
     `;
 
     showOnly('dashboard');
@@ -423,6 +431,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentUser = readJSON(STORAGE_USER);
       if (!currentUser) return;
 
+      serviceCards.forEach(c => c.classList.remove('active-card'));
+      card.classList.add('active-card');
       workspace.classList.remove('hidden');
 
       if (moduleName === 'cita') {
@@ -448,8 +458,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (savedCita) {
       workspace.innerHTML = `
-        <h3>Cita Médica Familiar</h3>
-        <p class="text-muted">Tienes una cita programada (simulación).</p>
+        <div class="workspace-header">
+          <div>
+            <h3>Cita Médica Familiar</h3>
+            <p class="text-muted">Tienes una cita programada (simulación).</p>
+          </div>
+          <button type="button" id="btn-close-workspace" class="btn-close-module">Cerrar &times;</button>
+        </div>
 
         <div class="receipt-box">
           <div class="receipt-header">
@@ -466,6 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
 
+      bindCloseButton();
       animateIn('.receipt-box .receipt-details p', { y: 10, duration: 0.35, stagger: 0.07, delay: 0.2 });
 
       document.getElementById('btn-cancel-cita').addEventListener('click', () => {
@@ -483,7 +499,6 @@ document.addEventListener('DOMContentLoaded', () => {
       Vespertino: ['14:00', '14:45', '15:30', '16:15', '17:00', '18:30']
     };
 
-    // fecha mínima: mañana, en hora local (toISOString usa UTC y puede dar el día equivocado)
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const minDate = [
@@ -493,8 +508,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ].join('-');
 
     workspace.innerHTML = `
-      <h3>Agendar Cita Médica Familiar</h3>
-      <p class="text-muted">Selecciona el turno, fecha y horario disponible en <strong>${escapeHTML(clinicaActual)}</strong>.</p>
+      <div class="workspace-header">
+        <div>
+          <h3>Agendar Cita Médica Familiar</h3>
+          <p class="text-muted">Selecciona el turno, fecha y horario disponible en <strong>${escapeHTML(clinicaActual)}</strong>.</p>
+        </div>
+        <button type="button" id="btn-close-workspace" class="btn-close-module">Cerrar &times;</button>
+      </div>
 
       <form id="cita-form">
         <div class="form-grid">
@@ -528,6 +548,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <button type="submit" class="btn-primary">Confirmar cita</button>
       </form>
     `;
+
+    bindCloseButton();
 
     let selectedSlot = null;
     const turnoSelect = document.getElementById('cita-turno');
@@ -590,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const firstDay = new Date(year, month, 1);
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const offset = (firstDay.getDay() + 6) % 7; // semana empieza en lunes
+    const offset = (firstDay.getDay() + 6) % 7;
     const today = new Date();
     const pad = n => String(n).padStart(2, '0');
     const keyOf = d => `${year}-${pad(month + 1)}-${pad(d)}`;
@@ -688,18 +710,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const folioDoc = 'DEMO-' + Date.now().toString().slice(-8);
 
     workspace.innerHTML = `
-      <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div class="workspace-header no-print">
         <div>
           <h3>Constancia de Vigencia (ejemplo)</h3>
           <p class="text-muted">Documento de simulación académica, sin validez oficial.</p>
         </div>
-        <button id="btn-print-vigencia" class="btn-primary">Imprimir / Guardar PDF</button>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button id="btn-print-vigencia" class="btn-primary">Imprimir / Guardar PDF</button>
+          <button type="button" id="btn-close-workspace" class="btn-close-module">Cerrar &times;</button>
+        </div>
       </div>
 
       <div class="official-doc">
         <div class="doc-header">
           <div class="doc-title">
-            <h4>Salud Digital MX · Simulación</h4>
+            <h4>IMSS Digital + · Simulación</h4>
             <p>Proyecto escolar — Constancia de ejemplo</p>
           </div>
           <div class="doc-meta">
@@ -745,6 +770,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
+    bindCloseButton();
     animateIn('.doc-field', { y: 14, duration: 0.4, stagger: 0.06, delay: 0.15 });
     animateIn('.doc-banner-vigente', { scale: 0.96, y: 0, duration: 0.5, delay: 0.1 });
 
@@ -767,8 +793,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     workspace.innerHTML = `
-      <h3>Alta o Cambio de Clínica</h3>
-      <p class="text-muted">Tu clínica actual es <strong>${escapeHTML(user.clinica || DEFAULT_CLINICA)}</strong>. Ingresa tu nuevo Código Postal (5 dígitos) para consultar unidades disponibles.</p>
+      <div class="workspace-header">
+        <div>
+          <h3>Alta o Cambio de Clínica</h3>
+          <p class="text-muted">Tu clínica actual es <strong>${escapeHTML(user.clinica || DEFAULT_CLINICA)}</strong>. Ingresa tu nuevo Código Postal (5 dígitos) para consultar unidades disponibles.</p>
+        </div>
+        <button type="button" id="btn-close-workspace" class="btn-close-module">Cerrar &times;</button>
+      </div>
 
       <form id="cp-form" class="search-bar-group">
         <input type="text" id="input-cp" maxlength="5" inputmode="numeric" placeholder="Ej. 55000 o 55100" required>
@@ -778,6 +809,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <div id="clinica-feedback"></div>
       <div id="clinics-results" class="clinics-list"></div>
     `;
+
+    bindCloseButton();
 
     const cpForm = document.getElementById('cp-form');
     const resultsContainer = document.getElementById('clinics-results');
@@ -838,7 +871,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- ubicación ----------
   function renderUbicacionModule() {
-    // los valores de "tipo" deben coincidir con los data-filter de los botones del HTML
     const inmuebles = [
       {
         id: 1,
@@ -887,8 +919,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let seleccionado = inmuebles[0];
 
     workspace.innerHTML = `
-      <h3>Ubicación de Clínicas y Hospitales</h3>
-      <p class="text-muted">Consulta clínicas, hospitales y oficinas cercanas y visualiza su ubicación (datos de ejemplo).</p>
+      <div class="workspace-header">
+        <div>
+          <h3>Ubicación de Clínicas y Hospitales</h3>
+          <p class="text-muted">Consulta clínicas, hospitales y oficinas cercanas y visualiza su ubicación (datos de ejemplo).</p>
+        </div>
+        <button type="button" id="btn-close-workspace" class="btn-close-module">Cerrar &times;</button>
+      </div>
 
       <div class="search-bar-group" style="max-width: 100%; margin-top: 1rem;">
         <input type="text" id="search-inmueble" placeholder="Buscar por número de clínica, hospital o colonia...">
@@ -910,6 +947,8 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
     `;
+
+    bindCloseButton();
 
     const listContainer = document.getElementById('locations-list');
     const mapFrame = document.getElementById('imss-map-frame');
@@ -949,7 +988,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // filtros y buscador
     workspace.querySelectorAll('.pill-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         workspace.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
