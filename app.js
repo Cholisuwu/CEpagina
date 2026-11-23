@@ -66,12 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
     calendario: document.getElementById('view-calendario'),
     nosotros: document.getElementById('view-nosotros'),
     servicios: document.getElementById('view-servicios'),
-    modulos: document.getElementById('view-modulos')
+    modulos: document.getElementById('view-modulos'),
+    video: document.getElementById('view-video')
   };
   const navLinks = document.querySelectorAll('.nav-link');
 
   function showOnly(name) {
-    Object.entries(views).forEach(([key, el]) => el.classList.toggle('hidden', key !== name));
+    Object.entries(views).forEach(([key, el]) => {
+      if (el) el.classList.toggle('hidden', key !== name);
+    });
+    const player = document.getElementById('demo-video-player');
+    if (name !== 'video' && player && !player.paused) {
+      player.pause();
+    }
   }
 
   function setActiveNav(key) {
@@ -122,6 +129,13 @@ document.addEventListener('DOMContentLoaded', () => {
       showOnly('servicios');
       setActiveNav(key);
       animateIn('#view-servicios .card, #view-servicios .principio', { duration: 0.5, stagger: 0.06 });
+      return;
+    }
+
+    if (key === 'video') {
+      showOnly('video');
+      setActiveNav(key);
+      animateIn('#view-video .card', { duration: 0.5, stagger: 0.1 });
       return;
     }
 
@@ -724,7 +738,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="official-doc">
         <div class="doc-header">
           <div class="doc-title">
-            <h4>IMSS Digital + · Simulación</h4>
+            <h4>IMSS Digital · Simulación</h4>
             <p>Proyecto escolar — Constancia de ejemplo</p>
           </div>
           <div class="doc-meta">

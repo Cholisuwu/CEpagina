@@ -21,6 +21,7 @@
       <button type="button" class="nav-link" data-nav="nosotros">Misión, visión y valores</button>
       <button type="button" class="nav-link" data-nav="servicios">Servicios</button>
       <button type="button" class="nav-link" data-nav="modulos">Ubica tu módulo</button>
+      <button type="button" class="nav-link" data-nav="video">Video</button>
     </nav>
 
     <button id="btn-logout" class="btn-outline hidden">Cerrar sesión</button>
@@ -41,6 +42,9 @@
           <p class="hero-desc">
             Agenda tus citas médicas familiares, descarga tu vigencia de derechos y ubica tu clínica más cercana sin hacer filas.
           </p>
+          <button type="button" class="btn-hero-video" data-nav="video">
+            &#9654; Ver video demostrativo
+          </button>
         </div>
       </section>
 
@@ -272,6 +276,30 @@
     </section>
   </main>
 
+  <main id="view-video" class="container main-content hidden">
+    <section class="card serv-hero">
+      <p class="serv-kicker">RECORRIDO GUIADO</p>
+      <h2>Video demostrativo</h2>
+      <p class="text-muted">
+        Conoce el funcionamiento completo de <strong>IMSS Digital</strong>: inicio de sesión,
+        gestión de citas médicas, consulta de calendario, descarga de vigencia y ubicación de clínicas.
+      </p>
+    </section>
+
+    <section class="card video-card">
+      <div class="video-wrapper">
+        <video id="demo-video-player" controls preload="metadata" poster="altas-del-imss-jpg.webp">
+          <source src="video/demo-imss.mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de video HTML5.
+        </video>
+      </div>
+      <div class="video-caption">
+        <span><strong>Duración aproximada:</strong> 2 min</span>
+        <span class="text-muted">Simulación académica • Uso ilustrativo</span>
+      </div>
+    </section>
+  </main>
+
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-brand">
@@ -280,7 +308,7 @@
       </div>
       <div class="footer-credits">
         <span class="credits-label">Desarrollado por:</span>
-        <p class="credits-names">Solis Torres Luis Angel • Angeles Carrillo Guillermo • Rivera Santos Valeria Sayuri • Elías herrera Christian Octavio • Hernandez Ramos Jose Lenny </p>
+        <p class="credits-names">Solis Torres Luis Angel • Angeles Carrillo Guillermo • Rivera Santos Valeria Sayuri • Elías Herrera Christian Octavio • Hernandez Ramos Jose Lenny</p>
       </div>
     </div>
   </footer>
